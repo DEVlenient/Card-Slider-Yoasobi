@@ -13,5 +13,20 @@ var swiper = new Swiper(".mySwiper", {
     pagination: {
         el: ".swiper-pagination",
     },
-    initialSlide: 2, // 設置初始顯示的幻燈片索引（2對應到夜に駆ける）
+    initialSlide: 2,
+});
+
+document.addEventListener("wheel", function (event) {
+    event.preventDefault();
+
+    var delta = event.deltaY || event.detail || (-event.wheelDelta);
+
+    // 定義一個速度係數，控制滾動速度
+    var scrollSpeed = 0.5;
+
+    // 根據滾動方向和速度係數調整滾動位移
+    var scrollAmount = delta * scrollSpeed;
+
+    // 移動 slide
+    swiper.slideTo(swiper.activeIndex + Math.sign(scrollAmount));
 });
